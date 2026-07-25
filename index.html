@@ -82,11 +82,21 @@
         }
     </style>
     <script>
+        // Controlla se hai già fatto il login in precedenza
+        window.onload = function() {
+            if (sessionStorage.getItem("sbloccato") === "vero") {
+                document.getElementById("login-box").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }
+            updateCounter();
+        };
+
         function checkPassword() {
             var passwordGiusta = "06.04.25"; 
             var inputPassword = document.getElementById("password-input").value;
             
             if (inputPassword === passwordGiusta) {
+                sessionStorage.setItem("sbloccato", "vero"); // Ricorda che sei entrata
                 document.getElementById("login-box").style.display = "none";
                 document.getElementById("content").style.display = "block";
             } else {
@@ -119,7 +129,7 @@
         }
     </script>
 </head>
-<body onload="updateCounter()">
+<body>
 
     <!-- Schermata della password iniziale -->
     <div id="login-box">
