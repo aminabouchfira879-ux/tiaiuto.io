@@ -1,110 +1,100 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Due collane</title>
-<style>
-body {
-background-color: #fff8f0;
-color: #333;
-font-family: 'Georgia', serif;
-text-align: center;
-padding: 50px 20px;
-}
-h1 {
-color: #ff4757;
-font-size: 3em;
-margin-bottom: 10px;
-}
-h2 {
-color: #ff6b81;
-font-size: 1.5em;
-font-weight: normal;
-margin-top: 5px;
-}
-.contenitore {
-max-width: 800px;
-margin: 0 auto;
-background: white;
-padding: 40px;
-border-radius: 15px;
-box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-.lettera {
-margin-top: 40px;
-font-size: 1.2em;
-line-height: 1.8;
-text-align: left;
-}
-.data-speciale {
-margin-top: 50px;
-font-style: italic;
-color: #57606f;
-border-top: 2px dashed #dfe6e9;
-padding-top: 20px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il nostro spazio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        #login-box input {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+        }
+        #login-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #content {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+    <script>
+        function checkPassword() {
+            var passwordGiusta = "06.04.25"; 
+            var inputPassword = document.getElementById("password-input").value;
+            
+            if (inputPassword === passwordGiusta) {
+                document.getElementById("login-box").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            } else {
+                alert("Password errata, riprova amore mio!");
+            }
+        }
+    </script>
 </head>
 <body>
 
-<div class="contenitore">
-<h1>Pippi</h1>
-<h2>Sei la cosa più bella che mi sia capitata</h2>
+    <!-- Schermata della password -->
+    <div id="login-box">
+        <h2>Area Riservata </h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Inserisci la password (la nostra data) per entrare:</p>
+        <input type="password" id="password-input" placeholder="GG.MM.AA"><br>
+        <button onclick="checkPassword()">Accedi</button>
+    </div>
 
-<hr style="border: 1px solid #ffeaa7; width: 50%; margin: 30px auto;">
+    <!-- Contenuto del sito (inizialmente nascosto) -->
+    <div id="content">
+        <h1 style="text-align: center; color: #ff4757; margin-bottom: 30px;">Il nostro spazio speciale ✨</h1>
 
-<div class="lettera">
-<p>Ehi cecia,</p>
-<p>Questo piccolo spazio l'ho creato pensando a te, a quanto sei speciale e a quanto mi rendi felice ogni giorno. Se non ti rispondo ai messaggi, usa questo posto per ricordarti quanto ti amo.</p>
-<p>Grazie per ogni momento passato insieme. Sei il mio pensiero felice. Ti amo 3000 ricordatelo sempre.</p>
-<p style="text-align: right; font-weight: bold; margin-top: 30px;">La tua emi</p>
-</div>
+        <!-- Primo blocco: Per quando è triste -->
+        <a href="triste.html" style="background: #ff4757; color: white; padding: 30px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block; margin-bottom: 15px;">
+            PER QUANDO SEI TRISTE 
+            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per un abbraccio</span>
+        </a>
 
-<div class="data-speciale">
-<p>Il nostro inizio: <strong>Il giorno in cui avevi la tinta in testa</strong></p>
-</div>
-</div>
+        <!-- Secondo blocco: Per quando è felice -->
+        <a href="felice.html" style="background: #ff6b81; color: white; padding: 30px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block; margin-bottom: 15px;">
+            PER QUANDO SEI FELICE 
+            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per un sorriso</span>
+        </a>
 
-<footer style="margin-top: 30px; color: #ccc; font-size: 0.8em;">
-<p>Creato con tanto amore, solo per te.</p>
-</footer>
-
-<div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-    
-    <!-- Primo blocco: Per quando è triste -->
-    <a href="triste.html" style="background: #ff4757; color: white; padding: 30px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block;">
-        PER QUANDO SEI TRISTE 
-        <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per un abbraccio </span>
-    </a>
-
-    <!-- Secondo blocco: Per quando è felice -->
-    <a href="felice.html" style="background: #ff6b81; color: white; padding: 30px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block;">
-        PER QUANDO SEI FELICE 
-        <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per rilassarti un po' </span>
-    </a>
-
-</div>
-
+        <!-- Terzo blocco: Le nostre canzoni -->
+        <a href="canzoni.html" style="background: #1ed760; color: white; padding: 30px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block;">
+            LE NOSTRE CANZONI 
+            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per la nostra colonna sonora</span>
+        </a>
+    </div>
 
 </body>
 </html>
-<details style="background: #fff0f3; padding: 15px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; text-align: left;">
-    <summary style="font-weight: bold; color: #ff4757;"> 🕷️Promemoria n. 1: Quando ti senti giù</summary>
-    <p style="margin-top: 10px; color: #333; font-weight: normal;">
-         "Ricordati che sei la persona più forte,brava,bella,gentile e meravigliosa che io conosca."
-    </p>
-</details>
-
-<details style="background: #fff0f3; padding: 15px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; text-align: left;">
-    <summary style="font-weight: bold; color: #ff4757;">🐈‍⬛ Promemoria n. 2: Per quando hai bisogno di un sorriso</summary>
-    <p style="margin-top: 10px; color: #333; font-weight: normal;">
-        non dare mai le spalle a Roggero 
-    </p>
-</details>
-
-<!-- Terzo blocco: Le nostre canzoni -->
-<a href="canzoni.html" style="background: #1ed760; color: white; padding: 30px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block; margin-top: 15px;">
-LE NOSTRE CANZONI
-<span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per la nostra colonna sonora</span>
-</a>
