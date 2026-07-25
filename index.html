@@ -46,10 +46,10 @@
         #content {
             display: none;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             position: relative;
         }
-        /* Stile del Love Counter dentro l'area riservata */
+        /* Stile Love Counter */
         .love-counter {
             background: #fff5f7;
             border: 2px dashed #ff4757;
@@ -59,6 +59,34 @@
             text-align: center;
             color: #333;
             font-weight: bold;
+        }
+        /* Stile del Gratta e Vinci */
+        .scratch-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .scratch-box {
+            background: #ffeaa7;
+            border: 2px solid #fdcb6e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .scratch-box:hover {
+            background: #ffeaa7;
+        }
+        .prize {
+            font-weight: bold;
+            color: #ff4757;
+            font-size: 18px;
         }
     </style>
     <script>
@@ -74,9 +102,9 @@
             }
         }
 
-        // Calcolo automatico del tempo insieme (dal 6 Aprile 2025)
+        // Calcolo del tempo insieme
         function updateCounter() {
-            var startDate = new Date(2025, 3, 6); // 3 = Aprile
+            var startDate = new Date(2025, 3, 6); 
             var now = new Date();
             var diff = now - startDate;
 
@@ -92,11 +120,17 @@
             }
         }
         setInterval(updateCounter, 1000);
+
+        // Funzione per "grattare" il bigliettino
+        function revealPrize(element, text) {
+            element.style.background = "#fff";
+            element.style.border = "2px dashed #ff4757";
+            element.innerHTML = "<div class='prize'>HAI VINTO! 🎉</div><p style='margin-top:10px; color:#333; font-size:16px;'>" + text + "</p>";
+        }
     </script>
 </head>
 <body onload="updateCounter()">
 
-    <!-- Schermata della password iniziale (pulita) -->
     <div id="login-box">
         <h2>Area Riservata</h2>
         <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Inserisci la password (la nostra data) per entrare:</p>
@@ -104,10 +138,8 @@
         <button onclick="checkPassword()">Accedi</button>
     </div>
 
-    <!-- Contenuto del sito (visibile SOLO dopo la password) -->
     <div id="content">
 
-        <!-- Menu a tendina con le linette in alto a sinistra -->
         <div style="position: absolute; top: -10px; left: 0;">
             <details style="position: relative;">
                 <summary style="font-size: 24px; cursor: pointer; list-style: none; background: white; padding: 6px 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">☰</summary>
@@ -123,38 +155,29 @@
 
         <h1 style="text-align: center; color: #ff4757; margin-bottom: 25px; margin-top: 50px;">Il nostro spazio speciale</h1>
 
-        <!-- Love Counter -->
         <div class="love-counter">
             <div style="font-size: 12px; color: #ff4757; margin-bottom: 5px; text-transform: uppercase;">Il nostro tempo insieme</div>
             <span id="counter" style="font-size: 15px;">Caricamento...</span>
         </div>
 
-        <!-- Primo blocco: Per quando è triste -->
-        <a href="triste.html" style="background: #ff4757; color: white; padding: 25px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block; margin-bottom: 15px;">
-            PER QUANDO SEI TRISTE 
-            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per un abbraccio</span>
-        </a>
+        <div class="scratch-card">
+            <h3 style="color: #ff4757; margin-top: 0;">Gratta e Vinci d'Amore 🎟️</h3>
+            <p style="color: #666; font-size: 14px;">Tocca un riquadro per grattarlo e scoprire cosa hai vinto!</p>
 
-        <!-- Secondo blocco: Per quando è felice -->
-        <a href="felice.html" style="background: #ff6b81; color: white; padding: 25px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block; margin-bottom: 15px;">
-            PER QUANDO SEI FELICE 
-            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per un sorriso</span>
-        </a>
+            <div class="scratch-box" onclick="revealPrize(this, 'Hai vinto un milione di baci e un abbraccio eterno da parte mia!')">
+                <span style="font-weight: bold; color: #d63031;">Gratta qui per il Premio 1 ✨</span>
+            </div>
 
-        <!-- Terzo blocco: Le nostre canzoni -->
-        <a href="canzoni.html" style="background: #1ed760; color: white; padding: 25px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block; margin-bottom: 15px;">
-            LE NOSTRE CANZONI 
-            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per la nostra colonna sonora</span>
-        </a>
+            <div class="scratch-box" onclick="revealPrize(this, 'Hai vinto una cenetta romantica fatta insieme (anche a distanza)!')">
+                <span style="font-weight: bold; color: #d63031;">Gratta qui per il Premio 2 ✨</span>
+            </div>
 
-        <!-- Quarto blocco: I nostri film e serie TV -->
-        <a href="film.html" style="background: #ff9f43; color: white; padding: 25px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; text-align: center; display: block;">
-            I NOSTRI FILM & SERIE TV 
-            <span style="display: block; font-size: 14px; font-weight: normal; margin-top: 5px;">Tocca qui per la nostra watchlist</span>
-        </a>
+            <div class="scratch-box" onclick="revealPrize(this, 'Hai vinto la certezza assoluta che ti amo da morire e sei la mia vita!')">
+                <span style="font-weight: bold; color: #d63031;">Gratta qui per il Premio 3 ✨</span>
+            </div>
+        </div>
 
     </div>
 
 </body>
 </html>
-
