@@ -80,15 +80,20 @@
             color: #ff4757;
             font-size: 18px;
         }
+        .joke {
+            font-weight: bold;
+            color: #0984e3;
+            font-size: 18px;
+        }
     </style>
     <script>
-        // Controlla se hai già fatto il login in precedenza
         window.onload = function() {
             if (sessionStorage.getItem("sbloccato") === "vero") {
                 document.getElementById("login-box").style.display = "none";
                 document.getElementById("content").style.display = "block";
             }
             updateCounter();
+            loadDailyScratch();
         };
 
         function checkPassword() {
@@ -96,7 +101,7 @@
             var inputPassword = document.getElementById("password-input").value;
             
             if (inputPassword === passwordGiusta) {
-                sessionStorage.setItem("sbloccato", "vero"); // Ricorda che sei entrata
+                sessionStorage.setItem("sbloccato", "vero");
                 document.getElementById("login-box").style.display = "none";
                 document.getElementById("content").style.display = "block";
             } else {
@@ -122,10 +127,83 @@
         }
         setInterval(updateCounter, 1000);
 
-        function revealPrize(element, text) {
+        // Genera frasi diverse ogni giorno in automatico
+        function loadDailyScratch() {
+            var today = new Date();
+            var dayIndex = (today.getFullYear() * 365 + today.getMonth() * 30 + today.getDate()) % 6;
+
+            // Le tue 6 frasi vincenti che ruotano nei giorni
+            var winningPhrases = [
+                "Hai vinto un milione di baci",
+                "Hai vinto una notte giocosa dove comandi tu",
+                "Hai vinto una cena romantica",
+                "Hai vinto un viaggio in islanda con me",
+                "Hai vinto la scelta del film",
+                "Hai vinto una notte piena di coccole"
+            ];
+
+            // Liste di battute per gli altri due riquadri
+            var jokePhrases1 = [
+                "Hai trovato solo aria fresca, ritenta domani!",
+                "Questo biglietto e vuoto, colpa del gatto!",
+                "Non hai vinto niente, ma ti meriti comunque un sorriso!",
+                "Qui c'e solo un po' di polvere, prova un altro riquadro!",
+                "Nulla qui dentro, cercavi forse fortuna altrove?",
+                "Spiacente, oggi la fortuna e altrove!"
+            ];
+
+            var jokePhrases2 = [
+                "Battuta: perche i piccioni volano a sud in inverno? Perche a piedi ci metterebbero troppo!",
+                "Battuta: cosa dice un chicco di caffe quando incontra un altro chicco? Piacere, mi fido di te!",
+                "Battuta: sai perche il mare fa sempre cosi rumore? Perche non riesce a stare zitto!",
+                "Battuta: sapevi che le api fanno il miele perche non sanno cucinare?",
+                "Battuta: perche i fantasmi non possono mentire? Perche si vede attraverso di loro!",
+                "Battuta: cosa fa un ape sulla stampante? Cerca il foglio di miele!"
+            ];
+
+            // Sceglie casualmente quale dei 3 riquadri (0, 1 o 2) sara quello vincente oggi
+            var winningBox = dayIndex % 3;
+
+            var box0 = document.getElementById("box0");
+            var box1 = document.getElementById("box1");
+            var box2 = document.getElementById("box2");
+
+            if (winningBox === 0) {
+                box0.setAttribute("data-type", "win");
+                box0.setAttribute("data-text", winningPhrases[dayIndex]);
+                box1.setAttribute("data-type", "joke");
+                box1.setAttribute("data-text", jokePhrases1[dayIndex]);
+                box2.setAttribute("data-type", "joke");
+                box2.setAttribute("data-text", jokePhrases2[dayIndex]);
+            } else if (winningBox === 1) {
+                box0.setAttribute("data-type", "joke");
+                box0.setAttribute("data-text", jokePhrases1[dayIndex]);
+                box1.setAttribute("data-type", "win");
+                box1.setAttribute("data-text", winningPhrases[dayIndex]);
+                box2.setAttribute("data-type", "joke");
+                box2.setAttribute("data-text", jokePhrases2[dayIndex]);
+            } else {
+                box0.setAttribute("data-type", "joke");
+                box0.setAttribute("data-text", jokePhrases1[dayIndex]);
+                box1.setAttribute("data-type", "joke");
+                box1.setAttribute("data-text", jokePhrases2[dayIndex]);
+                box2.setAttribute("data-type", "win");
+                box2.setAttribute("data-text", winningPhrases[dayIndex]);
+            }
+        }
+
+        function revealPrize(element) {
+            var type = element.getAttribute("data-type");
+            var text = element.getAttribute("data-text");
+
             element.style.background = "#fff";
             element.style.border = "2px dashed #ff4757";
-            element.innerHTML = "<div class='prize'>HAI VINTO!</div><p style='margin-top:10px; color:#333; font-size:16px;'>" + text + "</p>";
+
+            if (type === "win") {
+                element.innerHTML = "<div class='prize'>HAI VINTO!</div><p style='margin-top:10px; color:#333; font-size:16px;'>" + text + "</p>";
+            } else {
+                element.innerHTML = "<div class='joke'>NON HAI VINTO!</div><p style='margin-top:10px; color:#333; font-size:16px;'>" + text + "</p>";
+            }
         }
     </script>
 </head>
@@ -164,21 +242,21 @@
             <span id="counter" style="font-size: 15px;">Caricamento...</span>
         </div>
 
-        <!-- Sezione Gratta e Vinci d'Amore -->
+        <!-- Sezione Gratta e Vinci Giornaliero -->
         <div class="scratch-card">
-            <h3 style="color: #ff4757; margin-top: 0;">Gratta e Vinci d'Amore</h3>
-            <p style="color: #666; font-size: 14px;">Tocca un riquadro per grattarlo e scoprire cosa hai vinto!</p>
+            <h3 style="color: #ff4757; margin-top: 0;">Gratta e Vinci del Giorno</h3>
+            <p style="color: #666; font-size: 14px;">Oggi solo uno nasconde la vincita, negli altri troverai una battuta!</p>
 
-            <div class="scratch-box" onclick="revealPrize(this, 'Hai vinto un milione di baci e un abbraccio eterno da parte mia!')">
-                <span style="font-weight: bold; color: #d63031;">Gratta qui per il Premio 1</span>
+            <div id="box0" class="scratch-box" onclick="revealPrize(this)">
+                <span style="font-weight: bold; color: #d63031;">Gratta il primo riquadro</span>
             </div>
 
-            <div class="scratch-box" onclick="revealPrize(this, 'Hai vinto una cenetta romantica fatta insieme (anche a distanza)!')">
-                <span style="font-weight: bold; color: #d63031;">Gratta qui per il Premio 2</span>
+            <div id="box1" class="scratch-box" onclick="revealPrize(this)">
+                <span style="font-weight: bold; color: #d63031;">Gratta il secondo riquadro</span>
             </div>
 
-            <div class="scratch-box" onclick="revealPrize(this, 'Hai vinto la certezza assoluta che ti amo da morire e sei la mia vita!')">
-                <span style="font-weight: bold; color: #d63031;">Gratta qui per il Premio 3</span>
+            <div id="box2" class="scratch-box" onclick="revealPrize(this)">
+                <span style="font-weight: bold; color: #d63031;">Gratta il terzo riquadro</span>
             </div>
         </div>
 
